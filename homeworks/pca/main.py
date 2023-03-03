@@ -2,6 +2,7 @@ from typing import Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
+import numpy.linalg
 from tqdm import tqdm
 
 from utils import load_dataset, problem
@@ -9,7 +10,7 @@ from utils import load_dataset, problem
 
 @problem.tag("hw4-A")
 def reconstruct_demean(uk: np.ndarray, demean_data: np.ndarray) -> np.ndarray:
-    """Given a demeaned data, create a recontruction using eigenvectors provided by `uk`.
+    """Given a demeaned data, create a reconstruction using eigenvectors provided by `uk`.
 
     Args:
         uk (np.ndarray): First k eigenvectors. Shape (d, k).
@@ -55,7 +56,8 @@ def calculate_eigen(demean_data: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
             1. Eigenvalues array with shape (d,). Should be in descending order.
             2. Matrix with eigenvectors as columns with shape (d, d)
     """
-    raise NotImplementedError("Your Code Goes Here")
+    cov_mat = demean_data.T @ demean_data / len(demean_data)
+    return np.linalg.eig(cov_mat)
 
 
 @problem.tag("hw4-A", start_line=2)
