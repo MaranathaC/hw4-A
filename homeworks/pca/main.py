@@ -21,7 +21,7 @@ def reconstruct_demean(uk: np.ndarray, demean_data: np.ndarray) -> np.ndarray:
             Each row should correspond to row in demean_data,
             but first compressed and then reconstructed using uk eigenvectors.
     """
-    raise NotImplementedError("Your Code Goes Here")
+    return demean_data @ uk @ uk.T
 
 
 # @problem.tag("hw4-A")
@@ -77,8 +77,11 @@ def main():
     Note that you do not need to use reconstruction_error anywhere in the Winter 2023 iteration of this course.
     """
     (x_tr, y_tr), (x_test, _) = load_dataset("mnist")
+    x_tr = x_tr.reshape((len(x_tr), -1))
+    x_test = x_test.reshape((len(x_test), -1))
+    cov_mat = x_tr @ x_tr.T / len(x_tr)
+    print(cov_mat.shape)
 
-    raise NotImplementedError("Your Code Goes Here")
 
 
 if __name__ == "__main__":
