@@ -105,7 +105,7 @@ def lloyd_algorithm(
         classification = cluster_data(data, centers)
         errors.append(calculate_error(data, centers))
         centers = calculate_centers(data, classification, num_centers)
-        if np.argmax(centers - old_centers) < epsilon:
+        if np.max(np.abs(centers - old_centers)) <= epsilon:
             break
 
     return centers, errors

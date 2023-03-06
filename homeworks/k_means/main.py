@@ -13,17 +13,20 @@ from utils import load_dataset, problem
 def main():
     """Main function of k-means problem
 
-    If the handout instructs you to implement the following sub-problems, you should:
-        a. Run Lloyd's Algorithm for k=10, and report 10 centers returned.
-        b. For ks: 2, 4, 8, 16, 32, 64 run Lloyd's Algorithm,
-            and report objective function value on both training set and test set.
-            (All one plot, 2 lines)
+    Run Lloyd's Algorithm for k=10, and report 10 centers returned.
 
     NOTE: This code takes a while to run. For debugging purposes you might want to change:
         x_train to x_train[:10000]. CHANGE IT BACK before submission.
     """
     (x_train, _), (x_test, _) = load_dataset("mnist")
-    centers, errors = lloyd_algorithm(x_train[:10000], 10)
+    centers, errors = lloyd_algorithm(x_train, 10)
+
+    fig, ax = plt.subplots(1, 10, figsize=(10, 1))
+    for i in range(10):
+        center = centers[i].reshape(28, 28)
+        ax[i].imshow(center, cmap="gray")
+        ax[i].axis("off")
+    plt.show()
 
 
 if __name__ == "__main__":
